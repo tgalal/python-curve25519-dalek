@@ -1,0 +1,16 @@
+*.pyc
+*.class
+todo
+*.egg-info
+tp
+dist
+build
+.idea
+.tox
+*.iml
+*.swp
+env
+venv
+.env
+target
+Cargo.lock
