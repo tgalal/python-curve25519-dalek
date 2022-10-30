@@ -28,3 +28,11 @@ def test_elligator_vs_ristretto_sage():
                 32, 152, 69, 11, 190, 246, 86])
     )
 
+
+def test_multiscalar_mul():
+    s1 = scalar.Scalar.from64(999)
+    P1 = constants.RISTRETTO_BASEPOINT_POINT * s1
+    scalars = [s1, s1, s1]
+    points = [P1, P1, P1]
+    res = ristretto.RistrettoPoint.multiscalar_mul(scalars, points)
+    print(res)

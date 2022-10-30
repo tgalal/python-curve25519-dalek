@@ -2,6 +2,9 @@ use pyo3::prelude::*;
 use pyo3::types::PyBytes;
 use curve25519_dalek::ristretto::RistrettoPoint as _RistrettoPoint;
 use curve25519_dalek::ristretto::CompressedRistretto as _CompressedRistretto;
+use curve25519_dalek::scalar::Scalar as _Scalar;
+
+use curve25519_dalek::traits::MultiscalarMul;
 use crate::scalar::Scalar;
 
 #[pyclass]
@@ -21,6 +24,21 @@ impl RistrettoPoint {
 
     pub fn compress(&self) -> CompressedRistretto {
         CompressedRistretto(self.0.compress())
+    }
+
+    #[staticmethod]
+    pub fn multiscalar_mul(scalars: Vec<PyRef<Scalar>>,
+        points: Vec<PyRef<RistrettoPoint>>) -> RistrettoPoint
+    {
+        let scalars : Vec<_Scalar> = scalars.iter()
+            .map(|scalar| scalar.0)
+            .collect();
+        let points : Vec<_RistrettoPoint> = points.iter()
+            .map(|point| point.0)
+            .collect();
+
+        RistrettoPoint(
+            _RistrettoPoint::multiscalar_mul(scalars, points))
     }
 }
 
