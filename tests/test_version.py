@@ -1,5 +1,5 @@
-import curve25519_dalek
+import pycurve25519_dalek
 
-
-def test_version():
-    print(curve25519_dalek.__version__)
+def test_lib():
+    basepoint = pycurve25519_dalek.RISTRETTO_BASEPOINT_POINT
+    print(basepoint)
