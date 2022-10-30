@@ -5,7 +5,7 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
-name = "pycurve25519_dalek"
+name = "curve25519_dalek"
 crate-type = ["cdylib"]
 
 [dependencies]
