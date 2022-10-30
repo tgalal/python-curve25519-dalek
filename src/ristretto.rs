@@ -11,9 +11,12 @@ pub struct CompressedRistretto(pub _CompressedRistretto);
 
 #[pymethods]
 impl RistrettoPoint {
-    pub fn mul(&self, s : &Scalar) -> RistrettoPoint {
-        let p = self.0 * s.0;
-        RistrettoPoint(p)
+    pub fn __mul__(&self, other : &Scalar) -> RistrettoPoint {
+        RistrettoPoint(self.0 * other.0)
+    }
+
+    pub fn __add__(&self, other : &RistrettoPoint) -> RistrettoPoint {
+        RistrettoPoint(self.0 + other.0)
     }
 
     pub fn compress(&self) -> CompressedRistretto {

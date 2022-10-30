@@ -3,18 +3,18 @@ from curve25519_dalek import ristretto, scalar, constants
 def test_scalarmult_ristrettopoint_works_both_ways():
     P = constants.RISTRETTO_BASEPOINT_POINT
     s = scalar.Scalar.from64(999)
-    P1 = P.mul(s)
-    P2 = s.mul(P)
+    P1 = P * s
+    P2 = s * P
 
     assert P1.compress().as_bytes() == P2.compress().as_bytes()
 
 def test_impl_sum():
     BASE = constants.RISTRETTO_BASEPOINT_POINT
     s1 = scalar.Scalar.from64(999)
-    P1 = BASE.mul(s1);
+    P1 = BASE * s1
 
     s2 = scalar.Scalar.from64(333);
-    P2 = BASE.mul(s2);
+    P2 = BASE * s2;
 
     vec = [P1, P2]
 

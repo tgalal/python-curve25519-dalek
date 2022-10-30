@@ -12,9 +12,8 @@ impl Scalar {
         Scalar(_Scalar::from(x))
     }
 
-    pub fn mul(&self, p : &RistrettoPoint) -> RistrettoPoint {
-        let p = self.0 * p.0;
-        RistrettoPoint(p)
+    pub fn __mul__(&self, p : &RistrettoPoint) -> RistrettoPoint {
+        RistrettoPoint(self.0 * p.0)
     }
 }
 
