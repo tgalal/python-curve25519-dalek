@@ -10,4 +10,8 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = { version = "0.17.1", features = ["extension-module"] }
-curve25519-dalek = "3.0"
+
+[dependencies.curve25519-dalek]
+version = "3.0.0"
+git = "https://github.com/signalapp/curve25519-dalek.git"
+branch = "lizard2"
