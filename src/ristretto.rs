@@ -38,9 +38,3 @@ pub fn module(_py: Python<'_>) -> PyResult<&PyModule> {
     m.add_class::<CompressedRistretto>()?;
     Ok(m)
 }
-
-// pub fn setup(m: &PyModule) -> PyResult<()> {
-//     m.add_class::<RistrettoPoint>()?;
-//     m.add_class::<CompressedRistretto>()?;
-//     Ok(())
-// }
