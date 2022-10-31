@@ -24,15 +24,15 @@ fn make_submodule(parent: &PyModule, subinfo: (&str, &PyModule),
 
 // A Python module implemented in Rust.
 #[pymodule]
-#[pyo3(name = "curve25519_dalek")]
-fn pycurve25519_dalek(_py: Python, m: &PyModule) -> PyResult<()> {
+#[pyo3(name = "_curve25519_dalek")]
+fn _curve25519_dalek(_py: Python, m: &PyModule) -> PyResult<()> {
+
     let sys = PyModule::import(_py, "sys")?;
     let sys_modules: &PyDict = sys.getattr("modules")?.downcast()?;
 
     make_submodule(m, ristretto::module(_py)?, sys_modules)?;
     make_submodule(m, scalar::module(_py)?, sys_modules)?;
     make_submodule(m, constants::module(_py)?, sys_modules)?;
-
 
     Ok(())
 }
