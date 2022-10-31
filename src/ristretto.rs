@@ -53,9 +53,10 @@ impl CompressedRistretto {
     }
 }
 
-pub fn module(_py: Python<'_>) -> PyResult<&PyModule> {
-    let m = PyModule::new(_py, "ristretto")?;
+pub fn module(_py: Python<'_>) -> PyResult<(&str, &PyModule)> {
+    let name = "ristretto";
+    let m = PyModule::new(_py, name)?;
     m.add_class::<RistrettoPoint>()?;
     m.add_class::<CompressedRistretto>()?;
-    Ok(m)
+    Ok((name, m))
 }
