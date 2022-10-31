@@ -4,7 +4,7 @@ from curve25519_dalek.constants import RISTRETTO_BASEPOINT_POINT
 
 def test_scalarmult_ristrettopoint_works_both_ways():
     P = RISTRETTO_BASEPOINT_POINT
-    s = Scalar.from64(999)
+    s = Scalar.from_u64(999)
     P1 = P * s
     P2 = s * P
 
@@ -12,10 +12,10 @@ def test_scalarmult_ristrettopoint_works_both_ways():
 
 def test_impl_sum():
     BASE = RISTRETTO_BASEPOINT_POINT
-    s1 = Scalar.from64(999)
+    s1 = Scalar.from_u64(999)
     P1 = BASE * s1
 
-    s2 = Scalar.from64(333);
+    s2 = Scalar.from_u64(333);
     P2 = BASE * s2;
 
     vec = [P1, P2]
@@ -31,7 +31,7 @@ def test_elligator_vs_ristretto_sage():
     )
 
 def test_multiscalar_mul():
-    s1 = Scalar.from64(999)
+    s1 = Scalar.from_u64(999)
     P1 = RISTRETTO_BASEPOINT_POINT * s1
     scalars = [s1, s1, s1]
     points = [P1, P1, P1]

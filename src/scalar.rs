@@ -8,7 +8,7 @@ pub struct Scalar(pub _Scalar);
 #[pymethods]
 impl Scalar {
     #[staticmethod]
-    pub fn from64(x : u64) -> Scalar {
+    pub fn from_u64(x : u64) -> Scalar {
         Scalar(_Scalar::from(x))
     }
 
