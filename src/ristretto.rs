@@ -80,6 +80,7 @@ impl CompressedRistretto {
             None => Err(PyValueError::new_err("Decompress failed"))
         }
     }
+
     #[staticmethod]
     pub fn from_slice(bytes: &[u8]) -> CompressedRistretto {
         CompressedRistretto(_CompressedRistretto::from_slice(bytes))
