@@ -17,7 +17,7 @@ impl Scalar {
     }
 }
 
-pub fn module(_py: Python<'_>) -> PyResult<(&str, &PyModule)> {
+pub(crate) fn module(_py: Python<'_>) -> PyResult<(&str, &PyModule)> {
     let name = "scalar";
     let m = PyModule::new(_py, name)?;
     m.add_class::<Scalar>()?;
