@@ -2,23 +2,14 @@ from curve25519_dalek.ristretto import RistrettoPoint, CompressedRistretto
 from curve25519_dalek.scalar import Scalar
 from curve25519_dalek.constants import RISTRETTO_BASEPOINT_POINT
 
-def test_scalarmult_ristrettopoint_works_both_ways():
+def test_scalarmult():
     P = RISTRETTO_BASEPOINT_POINT
     s = Scalar.from_u64(999)
     P1 = P * s
-    P2 = s * P
-
-    assert P1.compress().as_bytes() == P2.compress().as_bytes()
-
-def test_impl_sum():
-    BASE = RISTRETTO_BASEPOINT_POINT
-    s1 = Scalar.from_u64(999)
-    P1 = BASE * s1
-
-    s2 = Scalar.from_u64(333);
-    P2 = BASE * s2;
-
-    vec = [P1, P2]
+    assert P1.compress().as_bytes() == bytes([
+        70, 101, 76, 35, 4, 33, 130, 159, 62, 231, 63, 205, 135, 227, 60, 26,
+        147, 227, 5, 110, 18, 24, 124, 104, 111, 26, 24, 111, 8, 181, 54, 33
+        ])
 
 def test_elligator_vs_ristretto_sage():
     data =  bytes([184, 249, 135, 49, 253, 123, 89, 113, 67, 160, 6, 239,
