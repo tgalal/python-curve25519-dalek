@@ -12,6 +12,13 @@ impl Scalar {
         Scalar(_Scalar::from(x))
     }
 
+    #[staticmethod]
+    pub fn from_bytes_mod_order(data: &[u8]) -> Scalar {
+        let mut data32 = [0u8; 32];
+        data32.copy_from_slice(&data[..]);
+        Scalar(_Scalar::from_bytes_mod_order(data32))
+    }
+
     pub fn __getitem__(&self, p: usize) -> u8 {
         self.0[p]
     }
