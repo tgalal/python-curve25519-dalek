@@ -12,6 +12,10 @@ impl Scalar {
         Scalar(_Scalar::from(x))
     }
 
+    pub fn __getitem__(&self, p: usize) -> u8 {
+        self.0[p]
+    }
+
     pub fn __mul__(&self, p : &Scalar) -> Scalar {
         Scalar(self.0 * p.0)
     }
