@@ -29,6 +29,13 @@ impl RistrettoPoint {
     }
 
     #[staticmethod]
+    pub fn from_uniform_bytes(data: &[u8]) -> RistrettoPoint {
+        let mut data64 =  [0u8; 64];
+        data64.copy_from_slice(&data[..]);
+        RistrettoPoint(_RistrettoPoint::from_uniform_bytes(&data64))
+    }
+
+    #[staticmethod]
     pub fn lizard_encode_sha256(data: &[u8]) -> RistrettoPoint {
         let mut data16 : [u8; 16] = Default::default();
         data16.copy_from_slice(&data[..]);
