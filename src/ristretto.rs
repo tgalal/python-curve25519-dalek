@@ -24,6 +24,10 @@ impl RistrettoPoint {
         RistrettoPoint(self.0 + other.0)
     }
 
+    pub fn __sub__(&self, other : &RistrettoPoint) -> RistrettoPoint {
+        RistrettoPoint(self.0 - other.0)
+    }
+
     pub fn compress(&self) -> CompressedRistretto {
         CompressedRistretto(self.0.compress())
     }
