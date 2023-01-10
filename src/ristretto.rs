@@ -1,6 +1,7 @@
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
 use pyo3::exceptions::PyValueError;
+use pyo3::basic::CompareOp;
 use sha2::Sha256;
 use curve25519_dalek::ristretto::RistrettoPoint as _RistrettoPoint;
 use curve25519_dalek::ristretto::CompressedRistretto as _CompressedRistretto;
@@ -30,6 +31,16 @@ impl RistrettoPoint {
 
     pub fn __neg__(&self) -> RistrettoPoint {
         RistrettoPoint(-self.0)
+    }
+
+    // Overriding comparison operators, currently only supporting == and !=
+    fn __richcmp__(&self, other: PyRef<RistrettoPoint>, op: CompareOp) -> Py<PyAny> {
+        let py = other.py();
+        match op {
+            CompareOp::Eq => (self.0 == other.0).into_py(py),
+            CompareOp::Ne => (self.0 != other.0).into_py(py),
+            _ => py.NotImplemented(),
+        }
     }
 
     pub fn compress(&self) -> CompressedRistretto {

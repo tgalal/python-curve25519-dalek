@@ -29,6 +29,14 @@ def test_multiscalar_mul():
     res = RistrettoPoint.multiscalar_mul(scalars, points)
     print(res)
 
+def test_eq():
+    s1 = Scalar.from_u64(1)
+    s2 = Scalar.from_u64(2)
+    res1 = RISTRETTO_BASEPOINT_POINT * s1
+    res2 = RISTRETTO_BASEPOINT_POINT * s2
+    assert RISTRETTO_BASEPOINT_POINT == res1
+    assert RISTRETTO_BASEPOINT_POINT != res2
+
 def lizard_encode_helper(data, result):
     p = RistrettoPoint.lizard_encode_sha256(data)
     p_bytes = p.compress().to_bytes();
