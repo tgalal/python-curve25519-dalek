@@ -1,4 +1,5 @@
 use pyo3::prelude::*;
+use pyo3::types::PyBytes;
 use curve25519_dalek::scalar::Scalar as _Scalar;
 use pyo3::basic::CompareOp;
 
@@ -44,6 +45,10 @@ impl Scalar {
 
     pub fn __neg__(&self) -> Scalar {
         Scalar(-self.0)
+    }
+
+    pub fn __bytes__(&self, py: Python) -> PyObject {
+        PyBytes::new(py, self.0.as_bytes()).into()
     }
 
     // Overriding comparison operators, currently only supporting == and !=

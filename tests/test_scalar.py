@@ -8,12 +8,13 @@ two = Scalar.from_u64(2)
 five = Scalar.from_u64(5)
 ten = Scalar.from_u64(10)
 
-X = Scalar.from_bytes_mod_order(bytes([
+X_bytes =bytes([
     0x4e, 0x5a, 0xb4, 0x34, 0x5d, 0x47, 0x08, 0x84,
     0x59, 0x13, 0xb4, 0x64, 0x1b, 0xc2, 0x7d, 0x52,
     0x52, 0xa5, 0x85, 0x10, 0x1b, 0xcc, 0x42, 0x44,
     0xd4, 0x49, 0xf4, 0xa8, 0x79, 0xd9, 0xf2, 0x04
-]))
+])
+X = Scalar.from_bytes_mod_order(X_bytes)
 
 def test_scalar_eq():
     assert zero == zero2
@@ -68,4 +69,10 @@ def test_from_bytes_mod_order_wide():
 
     for i in range(0, 32):
         assert test_red[i] == reduced[i]
+
+def test_to_bytes():
+    assert bytes(zero) ==  b'\x00' * 32
+    assert bytes(one) == b'\x01' + b'\x00' * 31
+    assert bytes(two) == b'\x02' + b'\x00' * 31
+    assert bytes(X) == X_bytes
 
