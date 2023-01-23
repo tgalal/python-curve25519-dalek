@@ -1,12 +1,14 @@
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
+use pyo3::types::PyList;
+use pyo3::types::PyTuple;
 use pyo3::exceptions::PyValueError;
 use pyo3::basic::CompareOp;
+use  pyo3::conversion::IntoPy;
 use sha2::Sha256;
 use curve25519_dalek::ristretto::RistrettoPoint as _RistrettoPoint;
 use curve25519_dalek::ristretto::CompressedRistretto as _CompressedRistretto;
 use curve25519_dalek::scalar::Scalar as _Scalar;
-
 use curve25519_dalek::traits::MultiscalarMul;
 use crate::scalar::Scalar;
 
@@ -89,6 +91,22 @@ impl RistrettoPoint {
 
         RistrettoPoint(
             _RistrettoPoint::multiscalar_mul(scalars, points))
+    }
+
+    pub fn decode_253_bits(&self, py: Python) -> PyObject {
+        let ret : (u8, [[u8; 32]; 8]) = self.0.decode_253_bits();
+        let one : PyObject = ret.0.into_py(py);
+        let two : PyObject = PyList::new(py, [
+                PyBytes::new(py,  &ret.1[0]),
+                PyBytes::new(py,  &ret.1[1]),
+                PyBytes::new(py,  &ret.1[2]),
+                PyBytes::new(py,  &ret.1[3]),
+                PyBytes::new(py,  &ret.1[4]),
+                PyBytes::new(py,  &ret.1[5]),
+                PyBytes::new(py,  &ret.1[6]),
+                PyBytes::new(py,  &ret.1[7]),
+            ]).into();
+        PyTuple::new(py, [one, two]).into()
     }
 }
 
