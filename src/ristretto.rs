@@ -99,12 +99,8 @@ impl CompressedRistretto {
         CompressedRistretto(_CompressedRistretto::from_slice(data))
     }
 
-    pub fn as_bytes(&self, py: Python) -> PyObject {
+    pub fn __bytes__(&self, py: Python) -> PyObject {
         PyBytes::new(py, self.0.as_bytes()).into()
-    }
-
-    pub fn to_bytes(&self, py: Python) -> PyObject {
-        PyBytes::new(py, &self.0.to_bytes()).into()
     }
 
     pub fn decompress(&self) -> PyResult<RistrettoPoint> {

@@ -6,7 +6,7 @@ def test_scalarmult():
     P = RISTRETTO_BASEPOINT_POINT
     s = Scalar.from_u64(999)
     P1 = P * s
-    assert P1.compress().as_bytes() == bytes([
+    assert bytes(P1.compress()) == bytes([
         70, 101, 76, 35, 4, 33, 130, 159, 62, 231, 63, 205, 135, 227, 60, 26,
         147, 227, 5, 110, 18, 24, 124, 104, 111, 26, 24, 111, 8, 181, 54, 33
         ])
@@ -39,7 +39,7 @@ def test_eq():
 
 def lizard_encode_helper(data, result):
     p = RistrettoPoint.lizard_encode_sha256(data)
-    p_bytes = p.compress().to_bytes();
+    p_bytes = bytes(p.compress())
     assert(p_bytes == result);
 
     p = CompressedRistretto.from_slice(p_bytes).decompress()
