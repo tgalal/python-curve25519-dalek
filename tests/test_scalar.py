@@ -16,6 +16,13 @@ X_bytes =bytes([
 ])
 X = Scalar.from_bytes_mod_order(X_bytes)
 
+XINV  = Scalar.from_bytes_mod_order(bytes([
+    0x1c, 0xdc, 0x17, 0xfc, 0xe0, 0xe9, 0xa5, 0xbb,
+    0xd9, 0x24, 0x7e, 0x56, 0xbb, 0x01, 0x63, 0x47,
+    0xbb, 0xba, 0x31, 0xed, 0xd5, 0xa9, 0xbb, 0x96,
+    0xd5, 0x0b, 0xcd, 0x7a, 0x3f, 0x96, 0x2a, 0x0f,
+]))
+
 def test_scalar_eq():
     assert zero == zero2
     assert zero2 == zero
@@ -75,4 +82,10 @@ def test_to_bytes():
     assert bytes(one) == b'\x01' + b'\x00' * 31
     assert bytes(two) == b'\x02' + b'\x00' * 31
     assert bytes(X) == X_bytes
+
+def test_invert():
+    inv_X = X.invert()
+    assert inv_X == XINV
+    should_be_one = inv_X * X
+    assert should_be_one == one
 

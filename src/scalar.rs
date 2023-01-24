@@ -47,6 +47,10 @@ impl Scalar {
         Scalar(-self.0)
     }
 
+    pub fn invert(&self) -> Scalar {
+        Scalar(self.0.invert())
+    }
+
     pub fn __bytes__(&self, py: Python) -> PyObject {
         PyBytes::new(py, self.0.as_bytes()).into()
     }
