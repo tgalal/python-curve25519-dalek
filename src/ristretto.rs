@@ -10,6 +10,7 @@ use curve25519_dalek::ristretto::RistrettoPoint as _RistrettoPoint;
 use curve25519_dalek::ristretto::CompressedRistretto as _CompressedRistretto;
 use curve25519_dalek::scalar::Scalar as _Scalar;
 use curve25519_dalek::traits::MultiscalarMul;
+use curve25519_dalek::traits::Identity;
 use crate::scalar::Scalar;
 
 #[pyclass]
@@ -47,6 +48,11 @@ impl RistrettoPoint {
 
     pub fn compress(&self) -> CompressedRistretto {
         CompressedRistretto(self.0.compress())
+    }
+
+    #[staticmethod]
+    pub fn identity() -> RistrettoPoint {
+        RistrettoPoint(_RistrettoPoint::identity())
     }
 
     #[staticmethod]
